@@ -158,7 +158,10 @@ exports.getLoginPage = (req, res) => {
 
 //-----------------------LOGIN HANDLE----------------------------
 exports.userLoginHandle = (req, res, next) => {
-    if (!myValidator.isEmail(req.body.email)) {
+    if (!req.body.email || !req.body.password) {
+        res.render('login', { error_msg: "Please fill in all fields", email: req.body.email, password: req.body.password });
+    }
+    else if (!myValidator.isEmail(req.body.email)) {
         res.render('login', { error_msg: "Invalid email" });
     } else {
         passport.authenticate('local', {
@@ -224,7 +227,9 @@ exports.getAccRecoveryPage = (req, res) => {
 //-------------------------SEND PASSWORD RESET LINK TO EMAIL----------------------
 exports.sendResetLink = (req, res) => {
     const email = req.body.email;
-
+    if (!email) {
+        res.render('account_recovery', { error_msg: "Please input an email", email });
+    }
     if (!myValidator.isEmail(email)) {
         res.render('account_recovery', { error_msg: "Invalid email" });
     } else {
