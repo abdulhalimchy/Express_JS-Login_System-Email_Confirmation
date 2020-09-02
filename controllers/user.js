@@ -230,7 +230,7 @@ exports.sendResetLink = (req, res) => {
     if (!email) {
         res.render('account_recovery', { error_msg: "Please input an email", email });
     }
-    if (!myValidator.isEmail(email)) {
+    else if (!myValidator.isEmail(email)) {
         res.render('account_recovery', { error_msg: "Invalid email" });
     } else {
         User.findOne({ email: email })
