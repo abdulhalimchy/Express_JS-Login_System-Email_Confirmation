@@ -322,6 +322,6 @@ exports.saveResetPassword = async (req, res) => {
 
 //-------------------------GET USER DASHBOARD-----------------------------
 exports.getUserDashboard = (req, res) => {
-    console.log(req.user);
+    console.log(req.user); //Debuging only
     res.render('dashboard', { user_name: req.user.name });
 }
